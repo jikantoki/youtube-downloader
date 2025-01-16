@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Test</title>
+    <title>YouTube Downloader</title>
+    <link rel="icon" href="/youtube.png">
   </head>
-  <body>
-    <form action="/download" method="get">
+  <body style="height: 100vh; margin: 0;">
+    <div style="display: flex; flex-direction: column; height: 100%; width: 100%; align-items: center; justify-content: center;">
+      <h1><img src="/youtube.png" style="height: 1em; vertical-align: middle;">YouTube Downloader</h1>
+      <p style="text-align: center;">URLを貼り付けるだけで、好きな動画をダウンロード！<br>ボタンを押してから動画のダウンロード開始まで、数十秒かかります</p>
+      <form action="/download" target="_blank" method="get">
         <input class="URL-input" name='url' placeholder="URL">
-        <button type='submit' class="button">download</button></a>
-    </form>
+        <button type='submit' class="button">Download</button></a>
+      </form>
+      <p>&copy;ときえのき</p>
+    </div>
   </body>
 </html>

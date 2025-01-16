@@ -19,16 +19,30 @@ app.get('/', (req, res) => {
 
 app.get('/download', (req, res) => {
   const url = req.query.url
+  if (!url || url == '') {
+    res.send('Invalid URL')
+    return
+  }
   const youtubeId = url.slice(-11)
 
   console.log(`dowmload start! URL = ${url}`)
 
-  ytdl.getBasicInfo(url).then((info) => {
-    console.log(info)
-  })
+  ytdl
+    .getBasicInfo(url)
+    .then((info) => {
+      console.log(info)
+    })
+    .on('error', () => {
+      res.send('Video not found')
+      return
+    })
   let contentFHD
   const content360p = ytdl(url, { quality: '18' })
     .pipe(fs.createWriteStream(`./files/${youtubeId}_360p.mp4`))
+    .on('error', () => {
+      res.send('Video not found')
+      return
+    })
     .on('close', () => {
       console.log('360p and audio Download Complete!')
       contentFHD = ytdl(url)
