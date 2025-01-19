@@ -11,6 +11,6 @@
     "ytdl-core": "^4.11.5"
   },
   "scripts": {
-    "start": "main.js"
+    "start": "node main.js"
   }
 }
