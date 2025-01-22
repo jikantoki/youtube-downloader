@@ -108,7 +108,15 @@ app
         })
         .on('close', () => {
           console.log('360p音声付き動画をダウンロードしました！')
-          res.download(`./files/${youtubeId}_360p.mp4`, `${filename}_360p.mp4`)
+          setTimeout(() => {
+            console.log(
+              '60秒経ってもHD画質がダウンロードできなかったので、360p動画を送信します'
+            )
+            res.download(
+              `./files/${youtubeId}_360p.mp4`,
+              `${filename}_360p.mp4`
+            )
+          }, 60 * 1000)
           //最高画質、音声なしダウンロード
           ytdl(url)
             .pipe(fs.createWriteStream(`./files/${youtubeId}.mp4`))
