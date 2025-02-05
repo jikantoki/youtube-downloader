@@ -38,6 +38,7 @@ const port = 3000
 
 app.listen(port, () => {
   console.log(`Server is Running at ${port}`)
+  console.log(`URL: http://localhost:${port}/`)
 })
 
 app.get('/', (req, res) => {
@@ -97,6 +98,8 @@ app
       const filename = replaceSpecialWords(
         `${author} - ${title} (${youtubeId})`
       )
+      /** これがTrueだと360pがダウンロードされる、FHDダウンロード成功でfalseになる */
+      let lowQualityDownload = true
       console.log(`ダウンロード中: ${filename}.mp4`)
       //360p音声付きダウンロード
       ytdl(url, { quality: '18' })
@@ -109,19 +112,23 @@ app
         .on('close', () => {
           console.log('360p音声付き動画をダウンロードしました！')
           setTimeout(() => {
-            console.log(
-              '60秒経ってもHD画質がダウンロードできなかったので、360p動画を送信します'
-            )
-            res.download(
-              `./files/${youtubeId}_360p.mp4`,
-              `${filename}_360p.mp4`
-            )
+            if (lowQualityDownload) {
+              console.log(
+                '60秒経ってもHD画質がダウンロードできなかったので、360p動画を送信します'
+              )
+              res.download(
+                `./files/${youtubeId}_360p.mp4`,
+                `${filename}_360p.mp4`
+              )
+              return
+            }
           }, 60 * 1000)
           //最高画質、音声なしダウンロード
           ytdl(url)
             .pipe(fs.createWriteStream(`./files/${youtubeId}.mp4`))
             .on('close', () => {
               console.log('最高画質（音声なし）をダウンロードしました！')
+              lowQualityDownload = false
               //ダウンロードした2つの動画を結合
               execSync(
                 `ffmpeg -i ./files/${youtubeId}.mp4 -i ./files/${youtubeId}_360p.mp4 -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 ./files/${youtubeId}_mixed.mp4`
