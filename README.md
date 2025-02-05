@@ -4,6 +4,12 @@ YouTube 動画をダウンロードできる Web サイト
 
 ![Screenshot](./screenshot.png)
 
+## Install
+
+```shell
+yarn install
+```
+
 ## How to use
 
 ```shell
