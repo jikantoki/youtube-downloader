@@ -100,8 +100,9 @@ app
       return
     }
 
-    //youtube.com又はyoutu.beドメインのURLかつ再生できない動画の時に
+    //再生できない動画の時に
     //メインプログラムごと止まってしまうバグあり
+    //Try...catchでもダメだった
     ytdl.getInfo(url).then((info) => {
       const details = info.player_response.videoDetails
       const title = details.title
