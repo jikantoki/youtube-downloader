@@ -10,6 +10,16 @@ YouTube 動画をダウンロードできる Web サイト
 yarn install
 ```
 
+### 使用するポートを選択
+
+/.env.js を作り以下を記述
+
+```js
+export default {
+  port: 3000, //使用したいポート（迷ったら3000でいいよ）
+}
+```
+
 ## How to use
 
 クリックするだけで動かす(Windows Only)

@@ -4,6 +4,7 @@ const ytdl = require('@distube/ytdl-core')
 const path = require('path')
 const fs = require('fs')
 const { execSync } = require('child_process')
+const env = require('./.env.js')
 
 /** ファイルを削除 */
 const deleteFile = (filePath) => {
@@ -34,7 +35,7 @@ const replaceSpecialWords = (str) => {
 
 app.use(express.static('public'))
 
-const port = 3000
+const port = env.default.port
 
 app.listen(port, () => {
   console.log(`Server is Running at ${port}`)
