@@ -58,7 +58,7 @@ app
     try {
       new URL(url)
     } catch (error) {
-      res.send(`Invalid URL: ${url}`)
+      res.send(`認識できないURL by new URL: ${url}`)
       console.log(`認識できないURL by new URL: ${url}`)
       return
     }
@@ -69,6 +69,17 @@ app
     urlParams.delete('list')
     url = urlObject.href
     const youtubeId = url.slice(-11)
+
+    switch (urlObject.host) {
+      case 'youtube.com':
+      case 'www.youtube.com':
+      case 'youtu.be':
+        break
+      default:
+        res.send(`認識できないURL by url.host: ${url}`)
+        console.log(`認識できないURL by url.host: ${url}`)
+        break
+    }
 
     //www.youtube.comをyoutu.beに変換
     if (
@@ -84,7 +95,7 @@ app
     console.log(`ダウンロード開始 URL = ${url}`)
 
     if (!ytdl.validateID(youtubeId) && !ytdl.validateURL(url)) {
-      res.send(`Invalid URL: ${url}`)
+      res.send(`認識できないURL by ytdl.validate: ${url}`)
       console.log(`認識できないURL by ytdl.validate: ${url}`)
       return
     }
