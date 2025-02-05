@@ -12,6 +12,13 @@ yarn install
 
 ## How to use
 
+クリックするだけで動かす(Windows Only)
+
+1. /run.bat をダブルクリック
+2. これで動きます！
+
+コマンド叩いて起動する方法
+
 ```shell
 node main.js
 #Webサイトが立ち上がるので http://localhost:3000 にアクセス
